@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zink's Website</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            margin: 0;
+            background: #0f172a;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .bubble {
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #312e81, #1e40af);
+            filter: blur(15px);
+            z-index: -1;
+            animation: float 20s ease-in-out infinite;
+            opacity: 0.5;
+        }
+
+        .bubble:nth-child(1) { width: 300px; height: 300px; top: -5%; left: -5%; animation-delay: 0s; }
+        .bubble:nth-child(2) { width: 250px; height: 250px; top: 40%; right: -5%; animation-delay: -5s; background: linear-gradient(45deg, #1e40af, #312e81); }
+        .bubble:nth-child(3) { width: 200px; height: 200px; bottom: 10%; left: 20%; animation-delay: -10s; }
+        .bubble:nth-child(4) { width: 150px; height: 150px; top: 20%; right: 20%; animation-delay: -15s; background: linear-gradient(45deg, #1e40af, #312e81); }
+
+        .content {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .loading {
+            animation: spin 4s linear;
+        }
+
+        .maxwell-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 50;
+            display: none;
+            background: rgba(0, 0, 0, 0.8);
+        }
+        .maxwell-container.active {
+            display: block;
+        }
+        .maxwell {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            pointer-events: none;
+            animation: float 3s ease-in-out infinite;
+            transform-origin: center;
+        }
+
+        #loadTime {
+            position: fixed;
+            top: 1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.5);
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            color: white;
+            z-index: 100;
+        }
+    </style>
+</head>
+<body>
+    <div id="loadTime"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+
+    <audio id="bgMusic" loop>
+        <source src="music.mp3" type="audio/mp3">
+    </audio>
+
+    <div class="maxwell-container" id="maxwellContainer"></div>
+    
+    <div class="relative min-h-screen flex flex-col p-6 max-w-2xl mx-auto text-white">
+        <main class="flex-1 space-y-8 mt-12">
+            <div class="content rounded-xl p-8 space-y-6">
+                <h1 class="text-3xl font-bold">Hi! Im zink AKA Catspin</h1>
+                <p class="opacity-80">im using this domain since my old one expiered D:</p>
+                
+                <div class="space-y-2">
+                    <p>I develop simple website mock-up designs</p>
+                    <p class="opacity-80">Like if you need an idea for a login page, I can throw together one quickly in HTML and Tailwind</p>
+                    <p class="font-semibold">(Price is as low as 1 dollar)</p>
+                </div>
+            </div>
+
+            <button onclick="spawnMaxwells()" class="content w-full py-3 rounded-xl hover:bg-slate-800/80 transition-all">
+                Press me for a surprise!
+            </button>
+
+            <div class="content rounded-xl p-8 space-y-4">
+                <h2 class="text-xl font-bold">Crypto donations:</h2>
+                <div class="space-y-4">
+                    <div class="bg-slate-900/50 rounded-lg p-4">
+                        <p class="font-medium mb-1">LTC:</p>
+                        <p class="text-sm opacity-80 break-all">ltc1q97p304d7v7pmtpr3k5zfekdqq0cdwl8mlnc8m8</p>
+                    </div>
+                    <div class="bg-slate-900/50 rounded-lg p-4">
+                        <p class="font-medium mb-1">XMR:</p>
+                        <p class="text-sm opacity-80 break-all">43EvMheFpKYKoaHDJHwygpZWsf7Ln6c3ubw5UsxfeW95E9TzTHmZeWo2AsnU9CGRJM1stGMUpN65qfLHzxgUJq8QGVWXFCL</p>
+                    </div>
+                </div>
+            </div>
+
+            <a href="https://x.com/Catspin_swe" target="_blank" rel="noopener noreferrer" 
+               class="content rounded-xl p-6 flex items-center space-x-4 hover:bg-slate-800/80 transition-all">
+                <div class="bg-[#1DA1F2] rounded-full p-3">
+                    <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path>
+                    </svg>
+                </div>
+                <div>
+                    <h3 class="font-semibold">Follow me on X</h3>
+                    <p class="text-sm opacity-80">@Catspin_swe</p>
+                </div>
+            </a>
+        </main>
+    </div>
+
+    <script>
+        const startTime = performance.now();
+        window.onload = () => {
+            const loadTime = (performance.now() - startTime).toFixed(2);
+            document.getElementById('loadTime').textContent = `Page loaded in ${loadTime}ms`;
+        };
+
+        const loadingStates = new WeakMap();
+
+        window.addEventListener('error', function(e) {
+            if (e.target.tagName === 'IMG') {
+                if (e.target.src.includes('http.cat/images/')) return;
+
+                let errorCode = '404';
+                const matches = e.target.src.match(/\/(\d{3})\./);
+                if (matches) errorCode = matches[1];
+
+                if (!loadingStates.get(e.target)) {
+                    loadingStates.set(e.target, true);
+                    e.target.src = 'https://http.cat/images/102.jpg';
+                    e.target.classList.add('loading');
+
+                    setTimeout(() => {
+                        e.target.src = `https://http.cat/images/${errorCode}.jpg`;
+                        e.target.classList.remove('loading');
+                        loadingStates.delete(e.target);
+                    }, 4000);
+                }
+            }
+        }, true);
+
+        function spawnMaxwells() {
+            const container = document.getElementById('maxwellContainer');
+            const music = document.getElementById('bgMusic');
+            container.classList.add('active');
+            
+            music.play().catch(e => {});
+            
+            container.innerHTML = '';
+            
+            const screenArea = window.innerWidth * window.innerHeight;
+            const elementArea = 100 * 100;
+            const elementCount = Math.floor(screenArea / (elementArea * 3));
+            
+            const gifs = [
+                'https://media.tenor.com/qJRMLPlR3_8AAAAj/maxwell-cat.gif',
+                'https://media.tenor.com/NYzVC0OHCbwAAAAi/pug-dog-dancing.gif'
+            ];
+            
+            for (let gifUrl of gifs) {
+                for (let i = 0; i < elementCount; i++) {
+                    const element = document.createElement('img');
+                    element.src = gifUrl;
+                    element.className = 'maxwell';
+                    element.style.left = Math.random() * 90 + 'vw';
+                    element.style.top = Math.random() * 90 + 'vh';
+                    element.style.animationDelay = Math.random() * 2 + 's';
+                    element.style.transform = `rotate(${Math.random() * 360}deg) scale(${0.8 + Math.random() * 0.4})`;
+                    container.appendChild(element);
+                }
+            }
+
+            setTimeout(() => {
+                container.innerHTML = '';
+                container.classList.remove('active');
+                music.pause();
+                music.currentTime = 0;
+            }, 28000);
+        }
+    </script>
+</body>
+</html>
