@@ -62,6 +62,17 @@
             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
         }
 
+        .nav-blur {
+            background: rgba(15, 23, 42, 0.3);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .nav-blur:hover {
+            background: rgba(15, 23, 42, 0.5);
+        }
+
         @keyframes spin {
             from { transform: rotate(0deg); }
             to { transform: rotate(360deg); }
@@ -230,10 +241,10 @@
 
     <div class="maxwell-container" id="maxwellContainer"></div>
     
-    <nav class="fixed top-0 left-0 right-0 z-50 bg-slate-900/80 backdrop-blur-lg border-b border-white/10">
+    <nav class="fixed top-0 left-0 right-0 z-50 nav-blur">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
-                <span class="text-xl font-bold text-white">Elias</span>
+                <span class="text-xl font-bold text-white hover:text-blue-400 transition-colors">Elias</span>
                 <div class="hidden md:flex space-x-4">
                     <a href="#about" class="nav-link">About</a>
                     <a href="#skills" class="nav-link">Skills</a>
