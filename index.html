@@ -1,10 +1,21 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr" itemscope itemtype="http://schema.org/WebPage">
 <head>
-    <!-- [Previous meta tags and SEO content remains unchanged] -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Elias - Full-stack Developer specializing in web development, virtual machines, and IT security. Future military/tech professional.">
+    <meta name="keywords" content="web development, virtual machines, IT security, military tech, JavaScript, TypeScript">
+    <meta property="og:title" content="Elias - Full-stack Developer">
+    <meta property="og:description" content="Building the future of secure web applications">
+    <title>Elias - Full-stack Developer</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+        :root {
+            --animation-duration: 0.6s;
+            --animation-timing: cubic-bezier(0.16, 1, 0.3, 1);
+        }
 
         body {
             margin: 0;
@@ -41,7 +52,7 @@
             backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.1);
             transition: all 0.3s ease;
-            animation: slideUp 0.6s ease-out forwards;
+            animation: slideUp var(--animation-duration) var(--animation-timing) forwards;
             opacity: 0;
         }
 
@@ -162,6 +173,48 @@
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
+
+        .skill-tag {
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            border-radius: 9999px;
+            padding: 0.25rem 0.75rem;
+            font-size: 0.875rem;
+            color: #818cf8;
+            transition: all 0.3s ease;
+        }
+
+        .skill-tag:hover {
+            background: rgba(99, 102, 241, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .nav-link {
+            position: relative;
+            padding: 0.5rem 1rem;
+            color: rgba(255, 255, 255, 0.8);
+            transition: all 0.3s ease;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: #6366f1;
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .nav-link:hover {
+            color: white;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
     </style>
 </head>
 <body>
@@ -177,55 +230,119 @@
 
     <div class="maxwell-container" id="maxwellContainer"></div>
     
-    <div class="relative min-h-screen flex flex-col p-4 sm:p-6 max-w-2xl mx-auto text-white">
-        <main class="flex-1 space-y-6 mt-12">
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-slate-900/80 backdrop-blur-lg border-b border-white/10">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <span class="text-xl font-bold text-white">Elias</span>
+                <div class="hidden md:flex space-x-4">
+                    <a href="#about" class="nav-link">About</a>
+                    <a href="#skills" class="nav-link">Skills</a>
+                    <a href="#contact" class="nav-link">Contact</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="relative min-h-screen flex flex-col p-4 sm:p-6 max-w-4xl mx-auto text-white pt-24">
+        <main class="flex-1 space-y-12">
+            <!-- Hero Section -->
             <div class="content rounded-2xl p-8 space-y-6" style="animation-delay: 0.1s">
-                <div class="space-y-2">
-                    <h1 class="text-4xl font-bold gradient-text bg-gradient-to-r from-blue-400 via-indigo-400 to-blue-400 bg-clip-text text-transparent">Hi! I'm Elias</h1>
-                    <div class="space-y-4 text-lg opacity-80">
-                        <p>Right now, I'm learning about HTML, JavaScript, web development, and virtual machines. I'm doing this to build a solid foundation for when I start upper secondary school. I want to work in IT, either for the military or in my own company.</p>
-                        
-                        <p>I like the Harry Potter movies because they have a fantasy aspect. I also enjoy reading books from the Warrior Cats series because there are almost endless books in the series.</p>
-                        
-                        <p>One of my best memories is when I bought my first domain name (I don't think it exists anymore).</p>
-                        
-                        <p class="text-emerald-400 font-medium">A piece of advice I'd give to my future self is to never give up.</p>
+                <div class="space-y-4">
+                    <h1 class="text-5xl sm:text-6xl font-bold gradient-text bg-gradient-to-r from-blue-400 via-indigo-400 to-blue-400 bg-clip-text text-transparent">
+                        Hi! I'm Elias
+                    </h1>
+                    <p class="text-2xl text-gray-300">Future Tech Professional & Security Enthusiast</p>
+                    <div class="flex flex-wrap gap-2 pt-4">
+                        <span class="skill-tag">Web Development</span>
+                        <span class="skill-tag">JavaScript</span>
+                        <span class="skill-tag">Virtual Machines</span>
+                        <span class="skill-tag">IT Security</span>
                     </div>
                 </div>
             </div>
 
-            <button onclick="spawnMaxwells()" class="content w-full py-4 rounded-xl hover:bg-slate-800/80 transition-all text-lg font-medium group" style="animation-delay: 0.2s">
-                Press me for a surprise! 
-                <span class="inline-block transition-transform group-hover:translate-x-1">→</span>
+            <!-- About Section -->
+            <div id="about" class="content rounded-2xl p-8 space-y-8" style="animation-delay: 0.2s">
+                <h2 class="text-3xl font-bold gradient-text bg-gradient-to-r from-purple-400 via-pink-400 to-purple-400 bg-clip-text text-transparent">
+                    About Me
+                </h2>
+                <div class="space-y-6 text-lg text-gray-300">
+                    <p>
+                        I'm passionate about technology and currently focused on learning HTML, JavaScript, web development, 
+                        and virtual machines. My goal is to build a strong foundation before starting upper secondary school, 
+                        with aspirations to work in IT, either for the military or through my own company.
+                    </p>
+                    <div class="grid sm:grid-cols-2 gap-6">
+                        <div class="space-y-2">
+                            <h3 class="font-semibold text-white">Interests</h3>
+                            <p>
+                                I'm a fan of Harry Potter movies for their fantasy elements and enjoy the extensive 
+                                Warrior Cats book series.
+                            </p>
+                        </div>
+                        <div class="space-y-2">
+                            <h3 class="font-semibold text-white">Memorable Moment</h3>
+                            <p>
+                                One of my best memories is purchasing my first domain name - a milestone in my tech journey.
+                            </p>
+                        </div>
+                    </div>
+                    <blockquote class="border-l-4 border-emerald-400 pl-4 italic text-emerald-400">
+                        "A piece of advice I'd give to my future self is to never give up."
+                    </blockquote>
+                </div>
+            </div>
+
+            <!-- Interactive Section -->
+            <button onclick="spawnMaxwells()" class="content w-full py-6 rounded-xl hover:bg-slate-800/80 transition-all text-xl font-medium group" style="animation-delay: 0.3s">
+                <span class="inline-flex items-center space-x-2">
+                    <span>Press for a Surprise!</span>
+                    <span class="inline-block transition-transform group-hover:translate-x-1">→</span>
+                </span>
             </button>
 
-            <div class="content rounded-2xl p-8 space-y-6" style="animation-delay: 0.3s">
-                <h2 class="text-2xl font-bold gradient-text bg-gradient-to-r from-purple-400 via-pink-400 to-purple-400 bg-clip-text text-transparent">Crypto donations:</h2>
-                <div class="space-y-4">
-                    <div class="crypto-address bg-slate-900/50 rounded-xl p-4">
-                        <p class="font-medium mb-2 text-blue-400">LTC:</p>
-                        <p class="text-sm opacity-80 break-all font-mono">ltc1q97p304d7v7pmtpr3k5zfekdqq0cdwl8mlnc8m8</p>
-                    </div>
-                    <div class="crypto-address bg-slate-900/50 rounded-xl p-4">
-                        <p class="font-medium mb-2 text-purple-400">XMR:</p>
-                        <p class="text-sm opacity-80 break-all font-mono">43EvMheFpKYKoaHDJHwygpZWsf7Ln6c3ubw5UsxfeW95E9TzTHmZeWo2AsnU9CGRJM1stGMUpN65qfLHzxgUJq8QGVWXFCL</p>
+            <!-- Contact Section -->
+            <div id="contact" class="content rounded-2xl p-8 space-y-8" style="animation-delay: 0.4s">
+                <h2 class="text-3xl font-bold gradient-text bg-gradient-to-r from-blue-400 via-indigo-400 to-blue-400 bg-clip-text text-transparent">
+                    Support & Connect
+                </h2>
+                
+                <div class="space-y-6">
+                    <h3 class="text-2xl font-bold gradient-text bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+                        Crypto donations:
+                    </h3>
+                    <div class="space-y-4">
+                        <div class="crypto-address bg-slate-900/50 rounded-xl p-4">
+                            <p class="font-medium mb-2 text-blue-400">LTC:</p>
+                            <p class="text-sm opacity-80 break-all font-mono">ltc1q97p304d7v7pmtpr3k5zfekdqq0cdwl8mlnc8m8</p>
+                        </div>
+                        <div class="crypto-address bg-slate-900/50 rounded-xl p-4">
+                            <p class="font-medium mb-2 text-purple-400">XMR:</p>
+                            <p class="text-sm opacity-80 break-all font-mono">43EvMheFpKYKoaHDJHwygpZWsf7Ln6c3ubw5UsxfeW95E9TzTHmZeWo2AsnU9CGRJM1stGMUpN65qfLHzxgUJq8QGVWXFCL</p>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <a href="https://x.com/Catspin_swe" target="_blank" rel="noopener noreferrer" 
-               class="content rounded-xl p-6 flex items-center space-x-4 hover:bg-slate-800/80 transition-all" style="animation-delay: 0.4s">
-                <div class="bg-[#1DA1F2] rounded-full p-3">
-                    <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path>
-                    </svg>
-                </div>
-                <div>
-                    <h3 class="font-semibold">Follow me on X</h3>
-                    <p class="text-sm opacity-80">@Catspin_swe</p>
-                </div>
-            </a>
+                <a href="https://x.com/Catspin_swe" target="_blank" rel="noopener noreferrer" 
+                   class="block mt-8 rounded-xl p-6 bg-slate-900/50 hover:bg-slate-800/80 transition-all">
+                    <div class="flex items-center space-x-4">
+                        <div class="bg-[#1DA1F2] rounded-full p-3">
+                            <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-lg">Follow me on X</h3>
+                            <p class="text-sm text-gray-400">@Catspin_swe</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
         </main>
+
+        <footer class="mt-12 py-6 text-center text-gray-400 text-sm">
+            <p>Made with ❤️ by Elias</p>
+        </footer>
     </div>
 
     <script>
@@ -233,6 +350,20 @@
         window.onload = () => {
             const loadTime = (performance.now() - startTime).toFixed(2);
             document.getElementById('loadTime').textContent = `Page loaded in ${loadTime}ms`;
+            
+            // Smooth scroll for navigation
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
         };
 
         const loadingStates = new WeakMap();
@@ -297,6 +428,22 @@
                 music.currentTime = 0;
             }, 28000);
         }
+
+        // Intersection Observer for content animation
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+
+        document.querySelectorAll('.content').forEach(element => {
+            observer.observe(element);
+        });
     </script>
 </body>
 </html>
