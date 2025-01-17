@@ -119,14 +119,16 @@
         <main class="flex-1 space-y-6 mt-12">
             <div class="content rounded-2xl p-8 space-y-6">
                 <div class="space-y-2">
-                    <h1 class="text-4xl font-bold bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">Hi! I'm zink AKA Catspin</h1>
-                    <p class="text-lg opacity-80">I'm using this domain since my old one expired D:</p>
-                </div>
-                
-                <div class="space-y-4 pt-2">
-                    <p class="text-xl font-medium">I develop simple website mock-up designs</p>
-                    <p class="opacity-80 text-lg">Like if you need an idea for a login page, I can throw together one quickly in HTML and Tailwind</p>
-                    <p class="font-semibold text-lg text-emerald-400">(Price is as low as $1)</p>
+                    <h1 class="text-4xl font-bold bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">Hi! I'm Elias</h1>
+                    <div class="space-y-4 text-lg opacity-80">
+                        <p>Right now, I'm learning about HTML, JavaScript, web development, and virtual machines. I'm doing this to build a solid foundation for when I start upper secondary school. I want to work in IT, either for the military or in my own company.</p>
+                        
+                        <p>I like the Harry Potter movies because they have a fantasy aspect. I also enjoy reading books from the Warrior Cats series because there are almost endless books in the series.</p>
+                        
+                        <p>One of my best memories is when I bought my first domain name (I don't think it exists anymore).</p>
+                        
+                        <p class="text-emerald-400 font-medium">A piece of advice I'd give to my future self is to never give up.</p>
+                    </div>
                 </div>
             </div>
 
@@ -165,7 +167,74 @@
     </div>
 
     <script>
-        // [Previous JavaScript remains unchanged]
+        const startTime = performance.now();
+        window.onload = () => {
+            const loadTime = (performance.now() - startTime).toFixed(2);
+            document.getElementById('loadTime').textContent = `Page loaded in ${loadTime}ms`;
+        };
+
+        const loadingStates = new WeakMap();
+
+        window.addEventListener('error', function(e) {
+            if (e.target.tagName === 'IMG') {
+                if (e.target.src.includes('http.cat/images/')) return;
+
+                let errorCode = '404';
+                const matches = e.target.src.match(/\/(\d{3})\./);
+                if (matches) errorCode = matches[1];
+
+                if (!loadingStates.get(e.target)) {
+                    loadingStates.set(e.target, true);
+                    e.target.src = 'https://http.cat/images/102.jpg';
+                    e.target.classList.add('loading');
+
+                    setTimeout(() => {
+                        e.target.src = `https://http.cat/images/${errorCode}.jpg`;
+                        e.target.classList.remove('loading');
+                        loadingStates.delete(e.target);
+                    }, 4000);
+                }
+            }
+        }, true);
+
+        function spawnMaxwells() {
+            const container = document.getElementById('maxwellContainer');
+            const music = document.getElementById('bgMusic');
+            container.classList.add('active');
+            
+            music.play().catch(e => {});
+            
+            container.innerHTML = '';
+            
+            const screenArea = window.innerWidth * window.innerHeight;
+            const elementArea = 100 * 100;
+            const elementCount = Math.floor(screenArea / (elementArea * 3));
+            
+            const gifs = [
+                'https://media.tenor.com/qJRMLPlR3_8AAAAj/maxwell-cat.gif',
+                'https://media.tenor.com/NYzVC0OHCbwAAAAi/pug-dog-dancing.gif'
+            ];
+            
+            for (let gifUrl of gifs) {
+                for (let i = 0; i < elementCount; i++) {
+                    const element = document.createElement('img');
+                    element.src = gifUrl;
+                    element.className = 'maxwell';
+                    element.style.left = Math.random() * 90 + 'vw';
+                    element.style.top = Math.random() * 90 + 'vh';
+                    element.style.animationDelay = Math.random() * 2 + 's';
+                    element.style.transform = `rotate(${Math.random() * 360}deg) scale(${0.8 + Math.random() * 0.4})`;
+                    container.appendChild(element);
+                }
+            }
+
+            setTimeout(() => {
+                container.innerHTML = '';
+                container.classList.remove('active');
+                music.pause();
+                music.currentTime = 0;
+            }, 28000);
+        }
     </script>
 </body>
 </html>
